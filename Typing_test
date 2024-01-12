@@ -1,0 +1,33 @@
+import time
+import random
+import string
+def generate_random_text(length):
+    """Generate random text of given length."""
+    return ''.join(random.choices(string.ascii_lowercase + ' ', k=length))
+def cal_typing_speed(start_time, end_time, input_text):
+    """Calculate typing speed in words per minute (WPM)."""
+    total_time = (end_time - start_time) / 60.0 
+    words_typed = len(input_text.split())
+    wpm = words_typed / total_time
+    return wpm
+def cal_accuracy(original_text, input_text):
+    """Calculate accuracy percentage."""
+    correct_chars = sum(1 for i, j in zip(original_text, input_text) if i == j)
+    accuracy = (correct_chars / len(original_text)) * 100
+    return accuracy
+def main():
+    text_length = 50 
+    random_text = generate_random_text(text_length)
+    print("Type the following text:")
+    print(random_text)
+    input("Press Enter when you are ready to start typing...") 
+    start_time = time.time()
+    user_input = input("Type the text exactly as shown above:\n")
+    end_time = time.time()
+    typing_speed = cal_typing_speed(start_time, end_time, user_input)
+    accuracy = cal_accuracy(random_text, user_input)
+    print("\nTyping Speed:", round(typing_speed, 2), "WPM")
+    print("Accuracy:", round(accuracy, 2), "%")
+    
+if __name__ == "__main__":
+    main()
